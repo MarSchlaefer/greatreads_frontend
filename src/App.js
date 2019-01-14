@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import UserHome from './userHome'
+import PublicHome from './publicHome'
 import './App.css';
 
 class App extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      login: 'loggedout'
+    }
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <header>greatreads</header>
+        <h1>{this.renderContent()}</h1>
+        <footer>footer</footer>
       </div>
     );
+  }
+
+  renderContent = () => {
+    if (this.state.login === 'loggedout') {
+      return <PublicHome />
+    } else if (this.state.login === 'loggedin') {
+      return <UserHome />
+    }
   }
 }
 
