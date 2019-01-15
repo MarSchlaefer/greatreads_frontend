@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import UserHome from './userHome'
-import PublicHome from './publicHome'
+import UserHome from './components/userHome'
+import PublicHome from './components/publicHome'
 import './App.css';
 
 class App extends Component {
@@ -16,7 +16,9 @@ class App extends Component {
     return (
       <div className="App">
         <header>greatreads</header>
-        <h1>{this.renderContent()}</h1>
+        <div className="main">
+          {this.renderContent()}
+        </div>
         <footer>footer</footer>
       </div>
     );
