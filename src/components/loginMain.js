@@ -5,7 +5,7 @@ class LoginMain extends Component {
     return (
       <div className="login-container">
         <h1>Login!</h1>
-        <form>
+        <form onSubmit={this.props.handlleLogin}>
           <label>
             Email:
           </label>

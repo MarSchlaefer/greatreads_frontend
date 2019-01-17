@@ -13,7 +13,7 @@ class PublicHome extends Component {
           <PublicMain />
         </div>
         <div className="public-right-container">
-          <LoginMain />
+          <LoginMain handlleLogin={this.props.handlleLogin}/>
           <AwardsMain />
         </div>
       </div>

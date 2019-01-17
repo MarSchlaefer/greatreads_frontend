@@ -26,10 +26,16 @@ class App extends Component {
 
   renderContent = () => {
     if (this.state.login === 'loggedout') {
-      return <PublicHome />
+      return <PublicHome handlleLogin={this.handlleLogin}/>
     } else if (this.state.login === 'loggedin') {
       return <UserHome />
     }
+  }
+
+  handlleLogin = () => {
+    this.setState({
+      login: 'loggedin'
+    })
   }
 }
 
