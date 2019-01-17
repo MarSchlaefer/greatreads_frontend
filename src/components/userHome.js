@@ -8,11 +8,12 @@ import Feed from './feed';
 class UserHome extends Component {
   render() {
     return (
-      <div>
-        <h1>Private Home Page</h1>
-        <CurrentlyReading />
-        <WantToRead />
-        <Read />
+      <div className="userHome-container">
+        <div className="userHome-left">
+          <CurrentlyReading />
+          <WantToRead />
+          <Read />
+        </div>
         <Feed />
       </div>
     )
