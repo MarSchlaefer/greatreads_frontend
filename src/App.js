@@ -8,8 +8,13 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      books: [],
       login: 'loggedout'
     }
+  }
+
+  componentDidMount() {
+    this.getBooks()
   }
 
   render() {
@@ -30,6 +35,10 @@ class App extends Component {
     } else if (this.state.login === 'loggedin') {
       return <UserHome />
     }
+  }
+
+  getBooks = () => {
+    fetch('')
   }
 
   handlleLogin = () => {
