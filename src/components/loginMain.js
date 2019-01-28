@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 class LoginMain extends Component {
+
   render() {
     return (
       <div className="login-container">
         <h1>Login!</h1>
-        <form onSubmit={this.props.handlleLogin}>
+        <form onSubmit={this.props.handleLogin}>
           <label>
             Email:
           </label>

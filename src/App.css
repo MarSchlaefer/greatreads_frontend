@@ -13,13 +13,19 @@
   border-color: black;
 }
 
-header {
+.navigation {
   height: 5vh;
   width: 100vw;
   background-color: yellow;
 }
 
-footer {
+.nav-content {
+  /* display: flex;
+  flex-direction: row;
+  margin: 1vh; */
+}
+
+.footer {
   height: 5vh;
   width: 100vw;
   background-color: yellow;
