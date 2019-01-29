@@ -3,7 +3,7 @@ import UserHome from './components/userHome'
 import PublicHome from './components/publicHome'
 import NavHead from './components/navHead'
 import NavFoot from './components/navFoot'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Bookshelf from './components/bookshelf'
 import Browse from './components/browse'
 import './App.css';
@@ -27,9 +27,12 @@ class App extends Component {
       <div className="App">
         <NavHead />
         <div className="main">
-          {this.renderContent()}
-          <Route exact path="/my-books" component={Bookshelf} />
-          <Route exact path="/browse" component={Browse} />
+          <Switch>
+            {this.renderContent()}
+            <Route exact path="/my-books" component={Bookshelf} />
+            <Route exact path="/browse" component={Browse} />
+
+          </Switch>
         </div>
         <NavFoot />
       </div>
@@ -40,12 +43,12 @@ class App extends Component {
     console.log(this.state.login)
     if (this.state.login === 'loggedout') {
       return <Route
-              exact path="/public"
+              exact path="/"
               render={(props) => <PublicHome {...props} handleLogin={this.handleLogin}/>}
             />
     } else if (this.state.login === 'loggedin') {
       return <Route
-              exact path="/home" component={UserHome}
+              exact path="/" component={UserHome}
             />
     }
   }
@@ -54,7 +57,8 @@ class App extends Component {
     fetch('')
   }
 
-  handleLogin = () => {
+  handleLogin = (e) => {
+    e.preventDefault()
     this.setState({
       login: 'loggedin'
     })

@@ -5,7 +5,7 @@ class NavHead extends Component {
   render() {
     return (
       <div className="navigation">
-          <NavLink exact to="/home">Home</NavLink>
+          <NavLink exact to="/">Home</NavLink>
           <NavLink exact to="/my-books">My Books</NavLink>
           <NavLink exact to="/browse">Browse</NavLink>
       </div>
