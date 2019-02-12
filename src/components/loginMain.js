@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 
 class LoginMain extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: ''
+    }
+  }
+
   render() {
     return (
       <div className="login-container">
@@ -10,12 +18,12 @@ class LoginMain extends Component {
           <label>
             Email:
           </label>
-          <input type="text" name="email"/>
+          <input type="text" name="email" onChange={this.inputChange} value={this.state.email}/>
         <br />
           <label>
             Password:
           </label>
-          <input type="text" name="Password"/>
+          <input type="password" name="password" onChange={this.inputChange} value={this.state.password}/>
         <br />
           <input type="submit" value="Submit"/>
         </form>
@@ -23,6 +31,15 @@ class LoginMain extends Component {
       </div>
     )
   }
-}
+
+  inputChange = (event) => {
+    console.log(this.state)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+
+} //end of class
 
 export default LoginMain;
