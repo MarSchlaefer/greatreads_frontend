@@ -31,7 +31,6 @@ class App extends Component {
             {this.renderContent()}
             <Route exact path="/my-books" component={Bookshelf} />
             <Route exact path="/browse" component={Browse} />
-
           </Switch>
         </div>
         <NavFoot />
@@ -44,7 +43,7 @@ class App extends Component {
     if (this.state.login === 'loggedout') {
       return <Route
               exact path="/"
-              render={(props) => <PublicHome {...props} handleLogin={this.handleLogin}/>}
+              render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
             />
     } else if (this.state.login === 'loggedin') {
       return <Route
@@ -54,15 +53,20 @@ class App extends Component {
   }
 
   getBooks = () => {
-    fetch('')
+    fetch('http://localhost:3000/api/v1/books')
+      .then(res => res.json())
+      .then(allBooks => this.setState({
+        books: allBooks
+      }, console.log(this.state.books)))
   }
 
   handleLogin = (e) => {
     e.preventDefault()
+    // console.log("in handleLogin");
     this.setState({
       login: 'loggedin'
     })
   }
-}
+} //end of class
 
 export default App;

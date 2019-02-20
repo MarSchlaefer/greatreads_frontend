@@ -11,7 +11,7 @@ class PublicHome extends Component {
     return (
       <div className="main-content">
         <div className="public-left-container">
-          <PublicMain />
+          <PublicMain books={this.props.books}/>
         </div>
         <div className="public-right-container">
           <LoginMain handleLogin={this.props.handleLogin}/>

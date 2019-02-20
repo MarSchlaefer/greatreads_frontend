@@ -5,7 +5,7 @@ class LoginMain extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
+      username: '',
       password: ''
     }
   }
@@ -14,7 +14,7 @@ class LoginMain extends Component {
     return (
       <div className="login-container">
         <h1>Login!</h1>
-        <form onSubmit={this.props.handleLogin}>
+        <form onSubmit={() => this.props.handleLogin(this.state.username, this.state.password)}>
           <label>
             Email:
           </label>

@@ -7,9 +7,9 @@ class PublicMain extends Component {
   render() {
     return (
       <React.Fragment>
-        <BookTypes />
-        <Quotes />
-        <BookLists />
+        <BookTypes books={this.props.books}/>
+        <Quotes books={this.props.books}/>
+        <BookLists books={this.props.books}/>
       </React.Fragment>
     )
   }
