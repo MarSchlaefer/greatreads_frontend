@@ -39,31 +39,11 @@
   border-style: dashed;
   border-radius: 10px;
   border-color: blue;
+  overflow: scroll;
+  justify-content: center;
 }
 
-.public-left-container {
-  height: 90%;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  margin: 5%;
-  border-style: dashed;
-  border-radius: 10px;
-  border-color: green;
-}
-
-.public-right-container {
-  height: 90%;
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  margin: 5%;
-  border-style: dashed;
-  border-radius: 10px;
-  border-color: green;
-}
-
-.book-types {
+/* .book-types {
   margin: 5%;
   border-style: dashed;
   border-radius: 10px;
@@ -85,25 +65,39 @@
 }
 
 .book-types span {
-  /* display: inline; */
-}
+  display: inline;
+} */
 
 .login-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 5%;
+  width: 50%;
+  /* margin: 5%; */
   border-style: dashed;
   border-radius: 10px;
   border-color: red;
 }
 
-.awards-container {
-  margin: 5%;
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  /* margin: 5%; */
   border-style: dashed;
   border-radius: 10px;
   border-color: red;
 }
+
+/* .awards-container {
+  margin: 5%;
+  border-style: dashed;
+  border-radius: 10px;
+  border-color: red;
+} */
 
 .userHome-container {
   height: 90vh;
@@ -168,4 +162,35 @@
   border-style: dashed;
   border-radius: 10px;
   border-color: lime;
+}
+
+.browse {
+  height: 90vh;
+  width: 75vw;
+  align-items: center;
+}
+
+.book-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book h1 {
+  font-size: 1em;
+}
+
+.book img {
+  height: 60%;
+  width: 50%;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  height: 20vh;
+  width: 10vw;
+  margin: 1em;
+  justify-content: center;
 }

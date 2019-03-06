@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BookThumb from './bookThumb'
 
 class BookTypes extends Component {
   render() {
@@ -13,7 +14,8 @@ class BookTypes extends Component {
 
   makeBook = () => {
     return this.props.books.forEach(book => {
-      <img src="${book.thumbnail}" />
+      // console.log(book)
+      return <BookThumb currBook={book}/>
     })
   }
 } //end class

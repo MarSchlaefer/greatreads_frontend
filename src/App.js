@@ -30,7 +30,7 @@ class App extends Component {
           <Switch>
             {this.renderContent()}
             <Route exact path="/my-books" component={Bookshelf} />
-            <Route exact path="/browse" component={Browse} />
+            <Route exact path="/browse" render={(props) => <Browse {...props} allBooks={this.state.books}/>} />
           </Switch>
         </div>
         <NavFoot />

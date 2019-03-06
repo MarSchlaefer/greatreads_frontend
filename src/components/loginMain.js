@@ -14,7 +14,7 @@ class LoginMain extends Component {
     return (
       <div className="login-container">
         <h1>Login!</h1>
-        <form onSubmit={() => this.props.handleLogin(this.state.username, this.state.password)}>
+        <form onSubmit={this.props.handleLogin}>
           <label>
             Email:
           </label>
@@ -27,7 +27,7 @@ class LoginMain extends Component {
         <br />
           <input type="submit" value="Submit"/>
         </form>
-        <p>Create a New Account</p>
+        
       </div>
     )
   }
