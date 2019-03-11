@@ -6,6 +6,7 @@ import NavFoot from './components/navFoot'
 import { Route, Switch } from 'react-router-dom'
 import Bookshelf from './components/bookshelf'
 import Browse from './components/browse'
+import Auth from './modules/auth'
 import './App.css';
 
 class App extends Component {
@@ -14,7 +15,8 @@ class App extends Component {
     super()
     this.state = {
       books: [],
-      login: 'loggedout'
+      login: 'loggedout',
+      auth: Auth.isUserAuthenticated()
     }
   }
 
@@ -43,7 +45,7 @@ class App extends Component {
     if (this.state.login === 'loggedout') {
       return <Route
               exact path="/"
-              render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
+              render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} handleSubmit={this.handleSubmit} books={this.state.books}/>}
             />
     } else if (this.state.login === 'loggedin') {
       return <Route
@@ -66,6 +68,22 @@ class App extends Component {
     this.setState({
       login: 'loggedin'
     })
+  }
+
+  handleSubmit = (e, data) => {
+    e.preventDefault()
+    console.log(data);
+    fetch("http://localhost:3000/api/v1/users", {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify({
+        user: data,
+      })
+    }).then (res => res.json())
+    .then (newUser => console.log(newUser))
+    .catch (error => console.log(error))
   }
 } //end of class
 

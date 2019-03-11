@@ -8,7 +8,7 @@ class PublicHome extends Component {
     return (
       <div className="main-content">
         <LoginMain handleLogin={this.props.handleLogin}/>
-        <CreateLogin />
+        <CreateLogin handleSubmit={this.props.handleSubmit}/>
       </div>
     )
   }
