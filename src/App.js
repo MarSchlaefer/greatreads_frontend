@@ -15,7 +15,6 @@ class App extends Component {
     super()
     this.state = {
       books: [],
-      login: 'loggedout',
       auth: Auth.isUserAuthenticated()
     }
   }
@@ -41,13 +40,13 @@ class App extends Component {
   }
 
   renderContent = () => {
-    console.log(this.state.login)
-    if (this.state.login === 'loggedout') {
+    console.log("Auth state at render", this.state.auth)
+    if (!this.state.auth) {
       return <Route
               exact path="/"
-              render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} handleSubmit={this.handleSubmit} books={this.state.books}/>}
+              render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
             />
-    } else if (this.state.login === 'loggedin') {
+    } else {
       return <Route
               exact path="/" component={UserHome}
             />
@@ -62,12 +61,28 @@ class App extends Component {
       }, console.log(this.state.books)))
   }
 
-  handleLogin = (e) => {
+  handleLogin = (e, data) => {
     e.preventDefault()
     // console.log("in handleLogin");
-    this.setState({
-      login: 'loggedin'
-    })
+    // this.setState({
+    //   login: 'loggedin'
+    // })
+    fetch("http://localhost:3000/api/v1/login", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user: data
+      })
+    }).then(res => res.json())
+    .then(currUser => {
+      console.log("This is current User", currUser)
+      Auth.authenticateToken(currUser.jwt)
+      this.setState({
+        auth: Auth.isUserAuthenticated()
+      }, console.log(this.state.auth))
+    }).catch(error => console.log(error))
   }
 
   handleSubmit = (e, data) => {
@@ -82,8 +97,13 @@ class App extends Component {
         user: data,
       })
     }).then (res => res.json())
-    .then (newUser => console.log(newUser))
-    .catch (error => console.log(error))
+    .then (newUser => {
+      console.log(newUser)
+      Auth.authenticateToken(newUser.jwt)
+      this.setState({
+        auth: Auth.isUserAuthenticated()
+      }, console.log(this.state.auth))
+    }).catch (error => console.log(error))
   }
 } //end of class
 

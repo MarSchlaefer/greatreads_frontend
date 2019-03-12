@@ -14,11 +14,11 @@ class LoginMain extends Component {
     return (
       <div className="login-container">
         <h1>Login!</h1>
-        <form onSubmit={this.props.handleLogin}>
+        <form onSubmit={(e) => this.props.handleLogin(e, this.state)}>
           <label>
-            Email:
+            Username:
           </label>
-          <input type="text" name="email" onChange={this.inputChange} value={this.state.email}/>
+          <input type="text" name="username" onChange={this.inputChange} value={this.state.username}/>
         <br />
           <label>
             Password:
@@ -27,15 +27,18 @@ class LoginMain extends Component {
         <br />
           <input type="submit" value="Submit"/>
         </form>
-        
+
       </div>
     )
   }
 
-  inputChange = (event) => {
-    console.log(this.state)
+  inputChange = (e) => {
+    const name = e.target.name
+    const val = e.target.value
+    console.log(name);
+    console.log(val);
     this.setState({
-      [event.target.name]: event.target.value
+      [name]: val,
     })
   }
 
