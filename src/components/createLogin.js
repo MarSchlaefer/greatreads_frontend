@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import BookTypes from './bookTypes';
-import Quotes from './quotes';
-import BookLists from './bookLists';
 
 class CreateLogin extends Component {
 

@@ -5,12 +5,28 @@ import Read from './read';
 
 class Bookshelf extends Component {
   render() {
+    console.log('my books props', this.props);
     return (
       <div className="bookshelves">
         <h1>bookshelf</h1>
-        <CurrentlyReading />
-        <Read />
-        <WantToRead />
+        <CurrentlyReading
+          allBooks={this.props.allBooks}
+          currUser={this.props.currUser}
+          handleBookClick={this.props.handleBookClick}
+          handleBookChange={this.props.handleBookChange}
+          />
+        <Read
+          allBooks={this.props.allBooks}
+          currUser={this.props.currUser}
+          handleBookClick={this.props.handleBookClick}
+          handleBookChange={this.props.handleBookChange}
+          />
+        <WantToRead
+          allBooks={this.props.allBooks}
+          currUser={this.props.currUser}
+          handleBookClick={this.props.handleBookClick}
+          handleBookChange={this.props.handleBookChange}
+          />
       </div>
     )
   }

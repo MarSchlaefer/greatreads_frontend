@@ -15,8 +15,9 @@ class NavHead extends Component {
     if (this.props.auth) {
       return (
         <div>
-          <NavLink exact to="/">Home</NavLink>
+          <NavLink exact to="/home">Home</NavLink>
           <NavLink exact to="/my-books">My Books</NavLink>
+          <NavLink exact to="/profile">My Profile</NavLink>
           <NavLink exact to="/browse">Browse</NavLink>
           <span onClick={this.props.handleLogout}>Logout</span>
         </div>

@@ -3,10 +3,12 @@ import UserHome from './components/userHome'
 import PublicHome from './components/publicHome'
 import NavHead from './components/navHead'
 import NavFoot from './components/navFoot'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Bookshelf from './components/bookshelf'
 import Browse from './components/browse'
 import Auth from './modules/auth'
+import BookShow from './components/bookShow'
+import Profile from './components/profile'
 import './App.css';
 
 class App extends Component {
@@ -14,8 +16,11 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      auth: Auth.isUserAuthenticated(),
+      currUser: {},
       books: [],
-      auth: Auth.isUserAuthenticated()
+      bookClicked: false,
+      currBookId: null
     }
   }
 
@@ -26,64 +31,84 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavHead handleLogout={this.handleLogout} auth={this.state.auth}/>
+        <NavHead handleLogout={this.handleLogout} auth={this.state.auth} />
         <div className="main">
-
-            {this.renderContent()}
-
+          {this.renderContent()}
         </div>
         <NavFoot />
       </div>
     );
   }
 
-  // renderContent = () => {
-  //   console.log("Auth state at render", this.state.auth)
-  //   if (!this.state.auth) {
-  //     return <Route
-  //             exact path="/"
-  //             render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
-  //           />
-  //   } else {
-  //     return <Route
-  //             exact path="/" component={UserHome}
-  //           />
-  //   }
-  // }
-
   renderContent = () => {
-    if (this.state.auth) {
+    if (this.state.auth && this.state.bookClicked) {
+      return (
+        <React.Fragment>
+          <BookShow
+            allBooks={this.state.books}
+            currBookId={this.state.currBookId}
+            currUser={this.state.currUser.user}
+          />
+        </React.Fragment>
+      )
+    } else if (this.state.auth && !this.state.bookClicked) {
       return (
         <Switch>
+          <Route exact path="/profile"
+            render={() => <Profile
+                            allBooks={this.state.books}
+                            currUser={this.state.currUser.user}
+                            handleBookClick={this.handleBookClick}
+                            handleBookChange={this.handleBookChange}
+                            />}
+          />
           <Route exact path="/browse"
-            render={(props) => <Browse {...props} allBooks={this.state.books}/>}
+            render={() => <Browse
+                            allBooks={this.state.books}
+                            currUser={this.state.currUser.user}
+                            handleBookClick={this.handleBookClick}
+                            handleBookChange={this.handleBookChange}
+                            />}
           />
           <Route exact path="/my-books"
-            render={() => <Bookshelf/>}
+            render={() => <Bookshelf
+                            allBooks={this.state.books}
+                            currUser={this.state.currUser.user}
+                            handleBookClick={this.handleBookClick}
+                            handleBookChange={this.handleBookChange}
+                            />}
           />
           <Route exact path="/home"
-            render={() => <UserHome/>}
+            render={() => <UserHome
+                            allBooks={this.state.books}
+                            currUser={this.state.currUser.user}
+                            handleBookClick={this.handleBookClick}
+                            handleBookChange={this.handleBookChange}
+                            />}
           />
         </Switch>
       )
     } else {
       return (
         <Switch>
+          <Route exact path={`/book/${this.state.currBook}`}
+          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} />}
+          />
           <Route
           exact path="/"
-          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
+          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} />}
           />
           <Route
           exact path="/browse"
-          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
+          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin}/>}
           />
           <Route
           exact path="/my-books"
-          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
+          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin}/>}
           />
           <Route
           exact path="/home"
-          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} books={this.state.books}/>}
+          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin}/>}
           />
         </Switch>
       )
@@ -95,15 +120,12 @@ class App extends Component {
       .then(res => res.json())
       .then(allBooks => this.setState({
         books: allBooks
-      }, console.log(this.state.books)))
+      }, () => console.log("all the books", this.state.books))
+      )
   }
 
   handleLogin = (e, data) => {
     e.preventDefault()
-    // console.log("in handleLogin");
-    // this.setState({
-    //   login: 'loggedin'
-    // })
     fetch("http://localhost:3000/api/v1/login", {
       method: 'POST',
       headers: {
@@ -117,8 +139,9 @@ class App extends Component {
       console.log("This is current User", currUser)
       Auth.authenticateToken(currUser.jwt)
       this.setState({
-        auth: Auth.isUserAuthenticated()
-      }, console.log(this.state.auth))
+        auth: Auth.isUserAuthenticated(),
+        currUser: currUser
+      }, () => console.log(this.state.auth, this.state.currUser))
     }).catch(error => console.log(error))
   }
 
@@ -157,6 +180,51 @@ class App extends Component {
       })
     }).catch(error => console.log(error))
   }
+
+  handleBookClick = (id) => {
+    console.log('in handle book click', id);
+    this.setState({
+      bookClicked: true,
+      currBookId: id
+    }, () => console.log(this.state))
+  }
+
+  handleBookChange = (e, id) => {
+    // console.log('userbook id', id);
+    // console.log('userbook event', e.target.value);
+    let bodyObj
+    if (e.target.value === 'Currently Reading') {
+      bodyObj = {
+        current: true,
+        read: false,
+        want: false,
+      }
+    } else if (e.target.value === 'Read') {
+      bodyObj = {
+        current: false,
+        read: true,
+        want: false,
+      }
+    } else if (e.target.value === 'Want to Read') {
+      bodyObj = {
+        current: false,
+        read: false,
+        want: true,
+      }
+    }
+    fetch(`http://localhost:3000/api/v1/user_books/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bodyObj)
+    }).then(res => res.json())
+    .then(editedUserBook => {
+      console.log(editedUserBook)
+    })
+  }
+
+
 } //end of class
 
 export default App;

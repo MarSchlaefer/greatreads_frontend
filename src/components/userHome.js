@@ -6,18 +6,21 @@ import Feed from './feed';
 
 
 class UserHome extends Component {
+
   render() {
     return (
       <div className="userHome-container">
         <div className="userHome-left">
-          <CurrentlyReading />
-          <WantToRead />
-          <Read />
+          <CurrentlyReading allBooks={this.props.allBooks} currUser={this.props.currUser} handleBookClick={this.props.handleBookClick} handleBookChange={this.props.handleBookChange}/>
+          <WantToRead allBooks={this.props.allBooks} currUser={this.props.currUser} handleBookClick={this.props.handleBookClick} handleBookChange={this.props.handleBookChange}/>
+          <Read allBooks={this.props.allBooks} currUser={this.props.currUser} handleBookClick={this.props.handleBookClick} handleBookChange={this.props.handleBookChange}/>
         </div>
-        <Feed />
+        <Feed currUser={this.props.currUser}/>
       </div>
     )
   }
-}
+
+
+} //end of class
 
 export default UserHome;
