@@ -14,18 +14,21 @@ class Bookshelf extends Component {
           currUser={this.props.currUser}
           handleBookClick={this.props.handleBookClick}
           handleBookChange={this.props.handleBookChange}
+          createUserBook={this.props.createUserBook}
           />
         <Read
           allBooks={this.props.allBooks}
           currUser={this.props.currUser}
           handleBookClick={this.props.handleBookClick}
           handleBookChange={this.props.handleBookChange}
+          createUserBook={this.props.createUserBook}
           />
         <WantToRead
           allBooks={this.props.allBooks}
           currUser={this.props.currUser}
           handleBookClick={this.props.handleBookClick}
           handleBookChange={this.props.handleBookChange}
+          createUserBook={this.props.createUserBook}
           />
       </div>
     )

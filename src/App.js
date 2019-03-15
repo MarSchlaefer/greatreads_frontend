@@ -60,6 +60,7 @@ class App extends Component {
                             currUser={this.state.currUser.user}
                             handleBookClick={this.handleBookClick}
                             handleBookChange={this.handleBookChange}
+                            createUserBook={this.createUserBook}
                             />}
           />
           <Route exact path="/browse"
@@ -68,6 +69,7 @@ class App extends Component {
                             currUser={this.state.currUser.user}
                             handleBookClick={this.handleBookClick}
                             handleBookChange={this.handleBookChange}
+                            createUserBook={this.createUserBook}
                             />}
           />
           <Route exact path="/my-books"
@@ -76,6 +78,7 @@ class App extends Component {
                             currUser={this.state.currUser.user}
                             handleBookClick={this.handleBookClick}
                             handleBookChange={this.handleBookChange}
+                            createUserBook={this.createUserBook}
                             />}
           />
           <Route exact path="/home"
@@ -84,6 +87,7 @@ class App extends Component {
                             currUser={this.state.currUser.user}
                             handleBookClick={this.handleBookClick}
                             handleBookChange={this.handleBookChange}
+                            createUserBook={this.createUserBook}
                             />}
           />
         </Switch>
@@ -195,21 +199,27 @@ class App extends Component {
     let bodyObj
     if (e.target.value === 'Currently Reading') {
       bodyObj = {
-        current: true,
-        read: false,
-        want: false,
+        user_book: {
+          current: true,
+          read: false,
+          want: false,
+        }
       }
     } else if (e.target.value === 'Read') {
       bodyObj = {
-        current: false,
-        read: true,
-        want: false,
+        user_book: {
+          current: false,
+          read: true,
+          want: false,
+        }
       }
     } else if (e.target.value === 'Want to Read') {
       bodyObj = {
-        current: false,
-        read: false,
-        want: true,
+        user_book: {
+          current: false,
+          read: false,
+          want: true,
+        }
       }
     }
     fetch(`http://localhost:3000/api/v1/user_books/${id}`, {
@@ -222,6 +232,10 @@ class App extends Component {
     .then(editedUserBook => {
       console.log(editedUserBook)
     })
+  }
+
+  createUserBook = (e) => {
+    console.log('in create userbook')
   }
 
 

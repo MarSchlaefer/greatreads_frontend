@@ -26,6 +26,7 @@ class Browse extends Component {
                   currUserId={this.props.currUser.id}
                   handleBookClick={this.props.handleBookClick}
                   handleBookChange={this.props.handleBookChange}
+                  createUserBook={this.props.createUserBook}
                   />
       })
     } else {

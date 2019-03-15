@@ -57,7 +57,7 @@ class BookCard extends Component {
       }
     } else {
       return (
-        <select onChange={(e) => this.props.handleBookChange(e, this.findUserBook().id)}>
+        <select onChange={(e) => this.props.createUserBook(e)}>
           <option defaultValue="not found">Not on a Bookshelf</option>
           <option value="current">Currently Reading</option>
           <option value="read">Read</option>
