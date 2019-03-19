@@ -181,30 +181,14 @@ class App extends Component {
   }
 
   handleLogout = () => {
-    fetch("http://localhost:3000/api/v1/logout", {
-      method: 'DELETE',
-      headers: {
-        token: Auth.getToken(),
-        'Authorization':`Token ${Auth.getToken()}`
-      }
-    }).then(res => {
-      Auth.deauthenticateToken()
-      this.setState({
-        auth: Auth.isUserAuthenticated()
-      })
-    }).catch(error => console.log(error))
+    Auth.deauthenticateToken()
+    localStorage.removeItem("currUser")
+    this.setState({
+      auth: Auth.isUserAuthenticated()
+    })
   }
 
-  // handleBookClick = (id) => {
-  //   console.log('in handle book click', id);
-  //   this.setState({
-  //     bookClicked: true,
-  //     currBookId: id
-  //   }, () => console.log(this.state))
-  // }
-
   handleBookChange = (e, id) => {
-    // console.log('userbook id', id);
     console.log('userbook event', e.target.value);
     let bodyObj
     if (e.target.value === 'current') {
@@ -223,7 +207,7 @@ class App extends Component {
           want: false,
         }
       }
-    } else if (e.target.value === 'Want to Read') {
+    } else if (e.target.value === 'want') {
       bodyObj = {
         user_book: {
           current: false,
@@ -244,18 +228,19 @@ class App extends Component {
     }).then(res => res.json())
     .then(editedUserBook => {
       console.log(editedUserBook)
-      let editedArray = [...this.state.books].map(book => {
-        return book.user_books.forEach(userBook => {
-          if (userBook.id === id) {
-            return editedUserBook
-          } else {
-            return userBook
-          }
-        })
-      })
-      this.setState({
-        books: editedArray
-      }, () => console.log('THIS IS STATE', this.state))
+      this.getBooks()
+      // let editedArray = [...this.state.books].map(book => {
+      //   return book.user_books.forEach(userBook => {
+      //     if (userBook.id === id) {
+      //       return editedUserBook
+      //     } else {
+      //       return userBook
+      //     }
+      //   })
+      // })
+      // this.setState({
+      //   books: editedArray
+      // }, () => console.log('THIS IS STATE', this.state))
     }).catch(error => console.log(error))
   }
 
@@ -264,31 +249,27 @@ class App extends Component {
     let bodyObj
     if (e.target.value === 'current') {
       bodyObj = {
-
-          book_id: bookId,
-          user_id: this.state.currUser.id,
-          current: true,
-          read: false,
-          want: false,
-
+        book_id: bookId,
+        user_id: this.state.currUser.user.id,
+        current: true,
+        read: false,
+        want: false
       }
     } else if (e.target.value === 'read') {
       bodyObj = {
-
-          book_id: bookId,
-          user_id: this.state.currUser.id,
-          current: false,
-          read: true,
-          want: false,
-
+        book_id: bookId,
+        user_id: this.state.currUser.user.id,
+        current: false,
+        read: true,
+        want: false
       }
     } else if (e.target.value === 'Want to Read') {
       bodyObj = {
-          book_id: bookId,
-          user_id: this.state.currUser.id,
-          current: false,
-          read: false,
-          want: true,
+        book_id: bookId,
+        user_id: this.state.currUser.user.id,
+        current: false,
+        read: false,
+        want: true
       }
     }
     fetch('http://localhost:3000/api/v1/user_books', {
@@ -300,18 +281,18 @@ class App extends Component {
     }).then(res => res.json())
     .then(newUserBook => {
       console.log(newUserBook)
-      let booksArray = [...this.state.books]
-      let newBooksArray = booksArray.map(book => {
-        if (book.id === bookId) {
-          book.user_books.push(newUserBook)
-          return book
-        } else {
-          return book
-        }
-      })
-      this.setState({
-        books: newBooksArray
-      })
+      this.getBooks()
+      // let newBooksArray = {...this.state.books}.map(book => {
+      //   if (book.id === bookId) {
+      //     book.user_books.push(newUserBook)
+      //     return book
+      //   } else {
+      //     return book
+      //   }
+      // })
+      // this.setState({
+      //   books: newBooksArray
+      // })
     }).catch(error => console.log(error))
   }
 
