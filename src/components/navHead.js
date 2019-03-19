@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class NavHead extends Component {
   render() {
@@ -15,10 +15,10 @@ class NavHead extends Component {
     if (this.props.auth) {
       return (
         <div>
-          <NavLink exact to="/home">Home</NavLink>
-          <NavLink exact to="/my-books">My Books</NavLink>
-          <NavLink exact to="/profile">My Profile</NavLink>
-          <NavLink exact to="/browse">Browse</NavLink>
+          <Link to="/home">Home</Link>
+          <Link to="/my-books">My Books</Link>
+          <Link to="/profile">My Profile</Link>
+          <Link to="/browse">Browse</Link>
           <span onClick={this.props.handleLogout}>Logout</span>
         </div>
       )
