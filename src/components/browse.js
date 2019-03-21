@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
+import Search from './search'
 import BookCard from './bookCard'
 
 class Browse extends Component {
+
+  constructor() {
+    super()
+    this.state = {
+      currSearch: null,
+      filteredBooks: []
+    }
+  }
+
   render() {
     // console.log('browse props', this.props);
     return (
       <div className="browse">
-        <h1>Browse</h1>
+        <div className="title-search">
+          <h1>Browse</h1>
+          <Search handleSearch={this.handleSearch}/>
+        </div>
         <div className="book-list">
-        {this.renderBooks()}
+          {this.renderBooks()}
         </div>
       </div>
     )
@@ -33,6 +46,21 @@ class Browse extends Component {
       return "No books"
     }
   }
-}
+
+  handleSearch = (e) => {
+    e.preventDefault()
+    this.setState({
+      currSearch: this.state.value
+    }, this.filterBooks())
+  }
+
+  filterBooks = () => {
+    let newArray = this.props.allBooks.filter(book => book.title.includes(this.state.currSearch))
+    this.setState({
+      filteredBooks: newArray
+    })
+  }
+
+} //end of class
 
 export default Browse;

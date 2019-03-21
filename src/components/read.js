@@ -4,9 +4,11 @@ import BookCard from './bookCard'
 class Read extends Component {
   render() {
     return (
-      <div className="read">
-        <h1>read</h1>
-        {this.renderContent()}
+      <div className={this.props.location === "bookshelf" ? "bookshelf" : "read"}>
+        <h1>Read</h1>
+        <div className={this.props.location === "bookshelf" ? "bookshelf-items" : this.props.location === "userHome" ? "userHome-read" : null}>
+          {this.renderContent()}
+        </div>
       </div>
     )
   }
@@ -36,10 +38,11 @@ class Read extends Component {
                 currUserId={this.props.currUser.id}
                 handleBookClick={this.props.handleBookClick}
                 handleBookChange={this.props.handleBookChange}
+                location={this.props.location}
               />
       })
     } else {
-      return <h1>No current books.</h1>
+      return <p>No current books.</p>
     }
   }
 

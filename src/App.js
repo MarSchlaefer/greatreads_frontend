@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import UserHome from './components/userHome'
 import PublicHome from './components/publicHome'
 import NavHead from './components/navHead'
-import NavFoot from './components/navFoot'
 import { Route, Switch } from 'react-router-dom'
 import Bookshelf from './components/bookshelf'
 import Browse from './components/browse'
@@ -36,11 +35,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavHead handleLogout={this.handleLogout} auth={this.state.auth} />
-          <div className="main">
-            {this.renderContent()}
-          </div>
-        <NavFoot />
+        <header>
+          <h1 className="logo">greatreads</h1>
+          <input type="checkbox" className="nav-toggle"></input>
+          <NavHead handleLogout={this.handleLogout} auth={this.state.auth} />
+          <label for="nav-toggle" className="nav-toggle-label">
+            <span></span>
+          </label>
+        </header>
+        <div className="main">
+          {this.renderContent()}
+        </div>
       </div>
     );
   }
@@ -105,6 +110,9 @@ class App extends Component {
       return (
         <Switch>
           <Route exact path="/book/:id"
+          render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} />}
+          />
+          <Route exact path="/profile"
           render={(props) => <PublicHome {...props} handleLogin={this.handleLogin} />}
           />
           <Route

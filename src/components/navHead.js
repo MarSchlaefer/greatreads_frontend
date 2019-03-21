@@ -4,23 +4,22 @@ import { Link } from 'react-router-dom'
 class NavHead extends Component {
   render() {
     return (
-      <div className="navigation">
-        <h1>greatreads</h1>
+      <nav>
         {this.renderContent()}
-      </div>
+      </nav>
     )
   }
 
   renderContent = () => {
     if (this.props.auth) {
       return (
-        <div>
-          <Link to="/home">Home</Link>
-          <Link to="/my-books">My Books</Link>
-          <Link to="/profile">My Profile</Link>
-          <Link to="/browse">Browse</Link>
-          <span onClick={this.props.handleLogout}>Logout</span>
-        </div>
+        <ul>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/my-books">My Books</Link></li>
+          <li><Link to="/profile">My Profile</Link></li>
+          <li><Link to="/browse">Browse</Link></li>
+          <li onClick={this.props.handleLogout}><a href="">Logout</a></li>
+        </ul>
       )
     }
   }

@@ -5,24 +5,44 @@ class BookCard extends Component {
 
   render() {
     return (
-      <div className="book">
-        <Link to={`/book/${this.props.bookData.id}`}>
-          <div className="book-info">
-            <h1>{this.props.bookData.title}</h1>
-          
-            <img src={this.props.bookData.thumbnail} alt=''/>
-          </div>
-        </Link>
-        {this.makeDropDown()}
-      </div>
+      <React.Fragment>
+        {this.renderBook()}
+      </React.Fragment>
     )
+  }
+
+  renderBook = () => {
+    if (this.props.location === "userHome") {
+      return (
+        <div className="book-userHome">
+          <Link to={`/book/${this.props.bookData.id}`}>
+            <img src={this.props.bookData.thumbnail} alt=''/>
+          </Link>
+        </div>
+      )
+    } else {
+      return (
+        <div className="book">
+          <Link to={`/book/${this.props.bookData.id}`}>
+            <div className="book-info">
+              <img src={this.props.bookData.thumbnail} alt=''/>
+              <div>
+                <h1>{this.props.bookData.title}</h1>
+                {this.renderAuthors()}
+              </div>
+            </div>
+          </Link>
+          {this.makeDropDown()}
+        </div>
+      )
+    }
   }
 
   renderAuthors = () => {
     console.log(this.props.bookData.authors);
-    // return this.props.bookData.authors.map(author => {
-    //   return <p>{author}</p>
-    // })
+    return JSON.parse(this.props.bookData.authors).map(author => {
+      return <p>{author}</p>
+    })
   }
 
   findUserBook = () => {

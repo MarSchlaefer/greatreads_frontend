@@ -11,9 +11,27 @@ class UserHome extends Component {
     return (
       <div className="userHome-container">
         <div className="userHome-left">
-          <CurrentlyReading allBooks={this.props.allBooks} currUser={this.props.currUser} handleBookClick={this.props.handleBookClick} handleBookChange={this.props.handleBookChange} createUserBook={this.props.createUserBook}/>
-          <WantToRead allBooks={this.props.allBooks} currUser={this.props.currUser} handleBookClick={this.props.handleBookClick} handleBookChange={this.props.handleBookChange} createUserBook={this.props.createUserBook}/>
-          <Read allBooks={this.props.allBooks} currUser={this.props.currUser} handleBookClick={this.props.handleBookClick} handleBookChange={this.props.handleBookChange} createUserBook={this.props.createUserBook}/>
+          <CurrentlyReading
+            allBooks={this.props.allBooks}
+            currUser={this.props.currUser}
+            handleBookClick={this.props.handleBookClick}
+            handleBookChange={this.props.handleBookChange}
+            createUserBook={this.props.createUserBook}
+            location="userHome"/>
+          <WantToRead
+            allBooks={this.props.allBooks}
+            currUser={this.props.currUser}
+            handleBookClick={this.props.handleBookClick}
+            handleBookChange={this.props.handleBookChange}
+            createUserBook={this.props.createUserBook}
+            location="userHome"/>
+          <Read
+            allBooks={this.props.allBooks}
+            currUser={this.props.currUser}
+            handleBookClick={this.props.handleBookClick}
+            handleBookChange={this.props.handleBookChange}
+            createUserBook={this.props.createUserBook}
+            location="userHome"/>
         </div>
         <Feed currUser={this.props.currUser}/>
       </div>

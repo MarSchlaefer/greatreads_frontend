@@ -4,9 +4,11 @@ import BookCard from './bookCard'
 class CurrentlyReading extends Component {
   render() {
     return (
-      <div className="currently-reading">
-        <h1>current</h1>
-        {this.renderContent()}
+      <div className={this.props.location === "bookshelf" ? "bookshelf" : "currently-reading"}>
+        <h1>Currently Reading</h1>
+        <div className={this.props.location === "bookshelf" ? "bookshelf-items" : this.props.location === "userHome" ? "userHome-current" : null}>
+          {this.renderContent()}
+        </div>
       </div>
     )
   }
@@ -38,7 +40,7 @@ class CurrentlyReading extends Component {
               />
       })
     } else {
-      return <h1>No current books.</h1>
+      return <p>No current books.</p>
     }
   }
 

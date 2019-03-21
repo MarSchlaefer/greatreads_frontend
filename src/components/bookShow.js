@@ -51,7 +51,7 @@ class BookShow extends Component {
       }
     } else {
       return (
-        <select onChange={(e) => this.props.createUserBook(e)}>
+        <select onChange={(e) => this.props.createUserBook(e, this.props.currBook.id)}>
           <option defaultValue="not found">Not on a Bookshelf</option>
           <option value="current">Currently Reading</option>
           <option value="read">Read</option>
