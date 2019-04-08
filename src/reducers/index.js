@@ -1,4 +1,4 @@
-import { combineReducers } from redux
+import { combineReducers } from 'redux'
 
 const editProfileReducer = (currUserId = null, action) => {
   if (action.type === 'CURR_USER_ID') {
